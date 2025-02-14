@@ -13,10 +13,10 @@ authController.post('/register', async (req,res) => {
     
     try{
 
-        await authService.register(username,email,password);
+        await authService.register(username,email,password, confirmPassword);
         res.redirect('/');
     }catch(err){
-        res.render('/auth/register', {title: 'Register Page', username, email});
+        res.render('auth/register', {title: 'Register Page', username, email, error: err.message});
     };
 });
 
