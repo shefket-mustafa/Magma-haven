@@ -39,6 +39,8 @@ const authService = {
         const token = await jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '2h'});
         return token;
     },
+
+  
 }
 
 export default authService;
