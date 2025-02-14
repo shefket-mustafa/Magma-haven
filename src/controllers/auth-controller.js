@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import authService from "../services/auth-service.js";
+import { getErrorMessage } from "../utils/errorUtils.js";
 
 const authController = Router();
 
@@ -17,11 +18,12 @@ authController.post("/register", async (req, res) => {
     res.cookie("auth", token, { httpOnly: true });
     res.redirect("/");
   } catch (err) {
+    const error = getErrorMessage(err)
     res.render("auth/register", {
       title: "Register Page",
       username,
       email,
-      error: err.message,
+      error
     });
   }
 });
@@ -37,10 +39,11 @@ authController.post("/login", async (req, res) => {
     res.cookie("auth", token, { httpOnly: true });
     res.redirect("/");
   } catch (err) {
+    const error = getErrorMessage(err);
     res.render("auth/login", {
       title: "Login Page",
       email,
-      error: err.message,
+      error
     });
   }
 });
