@@ -5,4 +5,8 @@ const router = Router();
 
 router.use(homeController)
 
+router.all('*', (req,res) => {
+    res.render('404', {title: '404 Page'})
+})
+
 export default router;
