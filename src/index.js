@@ -2,6 +2,7 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import 'dotenv/config';
 
 import router from './routes.js';
 
@@ -20,7 +21,7 @@ app.set('view engine', 'hbs');
 
 app.use('/static', express.static('src/public'));
 app.use(express.urlencoded({extended: false}));
-app.use(cookieParser)
+app.use(cookieParser())
 app.use(router)
 
 
