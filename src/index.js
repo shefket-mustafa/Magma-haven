@@ -1,7 +1,9 @@
 import express from 'express';
-import router from './routes.js';
 import handlebars from 'express-handlebars';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+
+import router from './routes.js';
 
 const app = express();
 
@@ -18,6 +20,7 @@ app.set('view engine', 'hbs');
 
 app.use('/static', express.static('src/public'));
 app.use(express.urlencoded({extended: false}));
+app.use(cookieParser)
 app.use(router)
 
 
