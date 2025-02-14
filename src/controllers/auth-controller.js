@@ -14,6 +14,8 @@ authController.post('/register', async (req,res) => {
     try{
 
         await authService.register(username,email,password, confirmPassword);
+        const token = await authService.login(email,password);
+        res.cookie('auth', token);
         res.redirect('/');
     }catch(err){
         res.render('auth/register', {title: 'Register Page', username, email, error: err.message});
@@ -32,7 +34,7 @@ authController.post('/login', async (req,res) => {
         res.cookie('auth', token);
         res.redirect('/');
     }catch(err){
-        console.log(err);
+        
         res.render('auth/login', {title: 'Login Page', email, error: err.message});
     }
 
