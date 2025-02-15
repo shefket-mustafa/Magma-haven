@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import authService from "../services/auth-service.js";
 import { getErrorMessage } from "../utils/errorUtils.js";
-import { isLoggedIn } from "../middlewares/authMiddleware.js";
+import { isAuth, isLoggedIn } from "../middlewares/authMiddleware.js";
 
 const authController = Router();
 
@@ -10,7 +10,7 @@ authController.get("/register", isLoggedIn, (req, res) => {
   res.render("auth/register", { title: "Register Page" });
 });
 
-authController.post("/register", async (req, res) => {
+authController.post("/register", isLoggedIn, async (req, res) => {
   const { username, email, password, confirmPassword } = req.body;
 
   try {
@@ -29,11 +29,11 @@ authController.post("/register", async (req, res) => {
   }
 });
 
-authController.get("/login", (req, res) => {
+authController.get("/login", isLoggedIn, (req, res) => {
   res.render("auth/login", { title: "Login Page" });
 });
 
-authController.post("/login", async (req, res) => {
+authController.post("/login", isLoggedIn, async (req, res) => {
   const { email, password } = req.body;
   try {
     const token = await authService.login(email, password);
@@ -49,7 +49,7 @@ authController.post("/login", async (req, res) => {
   }
 });
 
-authController.get('/logout', (req,res) => {
+authController.get('/logout', isAuth, (req,res) => {
     res.clearCookie('auth');
     res.redirect('/');
 });
