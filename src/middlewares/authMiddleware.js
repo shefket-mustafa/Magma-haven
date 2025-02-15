@@ -30,3 +30,10 @@ export const isAuth = (req,res,next) => {
 
     next();
 };
+
+export const isLoggedIn = (req,res,next) => {
+    if(req.user){
+        return res.redirect('/');
+    }
+    next();
+}

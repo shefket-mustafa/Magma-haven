@@ -2,10 +2,11 @@ import { Router } from "express";
 
 import authService from "../services/auth-service.js";
 import { getErrorMessage } from "../utils/errorUtils.js";
+import { isLoggedIn } from "../middlewares/authMiddleware.js";
 
 const authController = Router();
 
-authController.get("/register", (req, res) => {
+authController.get("/register", isLoggedIn, (req, res) => {
   res.render("auth/register", { title: "Register Page" });
 });
 
