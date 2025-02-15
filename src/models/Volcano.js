@@ -41,6 +41,10 @@ const volcanoSchema = new Schema({
     type: Types.ObjectId,
     ref: "User",
   },
+  voteList: [{
+    type: Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 const Volcano = model('Volcano', volcanoSchema);
