@@ -14,13 +14,12 @@
                     <label>Image:</label>
                     <input type="text" id="image" name="image" placeholder="http://..." value="{{volcanoData.image}}">
                     <label>Volcano Type:</label>
+
                     <select id="type" name="typeVolcano">
-                        <option value="Supervolcanoes">Supervolcanoes</option>
-                        <option value="Submarine">Submarine</option>
-                        <option value="Subglacial">Subglacial</option>
-                        <option value="Mud">Mud</option>
-                        <option value="Stratovolcanoes">Stratovolcanoes</option>
-                        <option value="Shield">Shield</option>
+                        {{#each volcanoTypes}}
+                    <option value="{{value}}" {{selected}}>{{label}}</option>
+                    {{/each}}
+                        
                     </select>
                     <label>Description:</label>
                     <textarea id="description" name="description" placeholder="..." value="{{volcanoData.description}}"></textarea>

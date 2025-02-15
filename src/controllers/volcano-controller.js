@@ -2,10 +2,25 @@ import { Router } from 'express';
 import volcanoService from '../services/volcano-service.js';
 import { getErrorMessage } from '../utils/errorUtils.js';
 
+function getVolcanoTypeViewData({typeVolcano}){
+    const volcanoTypes = [
+        "Supervolcanoes",
+          "Submarine",
+          "Subglacial",
+          "Mud",
+          "Stratovolcanoes",
+          "Shield"
+    ];
+    const viewData = volcanoTypes.map(type => ({value: type, label: type, selected: typeVolcano === type ? 'selected' : ''}));
+
+    return viewData;
+}
+
 const volcanoController = Router();
 
 volcanoController.get('/create', (req,res) => {
-    res.render('create', {title: 'Create Volcano Wiki'})
+    const volcanoTypes = getVolcanoTypeViewData({});
+    res.render('create', {title: 'Create Volcano Wiki', volcanoTypes})
 });
 
 volcanoController.post('/create', async (req,res) => {
@@ -18,7 +33,8 @@ volcanoController.post('/create', async (req,res) => {
         res.redirect('/volcanoes');
     }catch(err){
         const error = getErrorMessage(err);
-        res.render('create', { title: 'Create Volcano Wiki', volcanoData, error});
+        const volcanoTypeData = getVolcanoTypeViewData(volcanoData)
+        res.render('create', { title: 'Create Volcano Wiki', volcanoData, volcanoTypes: volcanoTypeData, error});
     }
 
 });
