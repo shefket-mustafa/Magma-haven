@@ -19,7 +19,7 @@ function getVolcanoTypeViewData({typeVolcano}){
 const volcanoController = Router();
 
 volcanoController.get('/create', (req,res) => {
-    const volcanoTypes = getVolcanoTypeViewData({});
+    const volcanoTypes = getVolcanoTypeViewData({} );
     res.render('create', {title: 'Create Volcano Wiki', volcanoTypes})
 });
 
@@ -39,4 +39,13 @@ volcanoController.post('/create', async (req,res) => {
 
 });
 
+
+volcanoController.get('/volcanoes', async (req,res) => {
+    const volcanoes = await volcanoService.getAll().lean();
+    res.render('catalog', {title: 'All volcanoes', volcanoes});
+});
+
+volcanoController.get('/:volcanoId/details', (req,res) => {
+    res.render('details', {title: 'Details Page'})
+})
 export default volcanoController;
